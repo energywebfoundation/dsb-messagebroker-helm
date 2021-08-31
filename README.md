@@ -15,6 +15,19 @@ For more information about DSB Client Gateway please check the [repository](http
 ```
 minikube start
 
+create a secret with JWT_SECRET and PRIVATE_KEY (blueprint below)
+
+apiVersion: v1
+kind: Secret
+metadata:
+    name: dsb-messagebroker-test-secret
+type: Opaque
+data:
+    privateKey: base64(PRIVATE_KEY)
+    jwtSecret: base64(JWT_SECRET)
+
+kubectl apply -f secret.yaml
+
 helm install dsb-messagebroker https://github.com/energywebfoundation/dsb-messagebroker-helm/archive/refs/tags/v0.1.0.tar.gz
 
 kubectl get pods
