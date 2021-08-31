@@ -60,15 +60,18 @@ service:
 
 ingress:
   enabled: false
-  annotations: {kubernetes.io/ingress.class: "alb",alb.ingress.kubernetes.io/scheme: "internet-facing"}
+  annotations: {kubernetes.io/ingress.class: azure/application-gateway}
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: dsb-dev.energyweb.org
+    - host: dsb-test.energyweb.org
       paths:
-      - path: /*
+      - path: /
+        pathType: Prefix
         backend:
-          serviceName: messagebroker
-          servicePort: 80
+          service:
+            name: dsb-messagebroker-test
+            port:
+              number: 80
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
