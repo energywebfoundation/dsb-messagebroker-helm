@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "messagebroker.fullname" . }}-configmap
+  labels:
+    {{- include "messagebroker.labels" . | nindent 4 }}
+data:
+  PORT: {{ .Values.messagebroker.config.port | default "3000" | quote }}
+  NATS_JS_URL: {{ .Values.messagebroker.config.natsClusterUrl | quote }}
+  WITH_SWAGGER: {{ .Values.messagebroker.config.withSwagger | default "true" | quote }}
+  WEB3_URL: {{ .Values.messagebroker.config.webUrl | default "https://volta-rpc.energyweb.org/" | quote }}
+  CACHE_SERVER_URL: {{ .Values.messagebroker.config.cacheServerUrl | default "https://identitycache-dev.energyweb.org/" | quote }}
+  MB_DID: {{ .Values.messagebroker.config.mbDid | quote }}
