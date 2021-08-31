@@ -3,7 +3,7 @@ entries:
   dsb-messagebroker:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-08-31T14:37:39.863733+02:00"
+    created: "2021-08-31T14:49:09.024515+02:00"
     description: A Helm chart for Kubernetes
     digest: 09738240670dff9cd5e76eb35b5d00cb217cffbeb0198ec92e15aeb31e676ab1
     name: dsb-messagebroker
@@ -11,4 +11,4 @@ entries:
     urls:
     - https://energywebfoundation.github.io/dsb-messagebroker-helm/dsb-messagebroker-1.0.2.tgz
     version: 1.0.2
-generated: "2021-08-31T14:37:39.861903+02:00"
+generated: "2021-08-31T14:49:09.02285+02:00"
