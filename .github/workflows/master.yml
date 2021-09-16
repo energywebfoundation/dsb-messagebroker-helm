@@ -36,16 +36,36 @@ jobs:
           minor_pattern: "(MINOR)"
           # A string to determine the format of the version output
           format: "${major}.${minor}.${patch}-prerelease${increment}"
+          # Optional path to check for changes. If any changes are detected in the path the
+          # 'changed' output will true. Enter multiple paths separated by spaces.
+          change_path: "Chart.yaml"
           # Indicate whether short tags like 'v1' should be supported. If false only full
           # tags like 'v1.0.0' will be recognized.
           short_tags: false
           # If this is set to true, *every* commit will be treated as a new version.
           bump_each_commit: false
+          
       - name: Create a GitHub release
         uses: actions/create-release@v1
+        if: ${{ steps.sem_ver.outputs.changed == 'true' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.sem_ver.outputs.version_tag }}
           release_name: Release ${{ steps.sem_ver.outputs.version_tag }}
-          draft: true
+
+      - name: Azure Login
+        uses: azure/login@v1
+        if: ${{ steps.sem_ver.outputs.changed == 'true' }}
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Azure CLI deploy to ACR
+        uses: azure/CLI@v1
+        if: ${{ steps.sem_ver.outputs.changed == 'true' }}
+        with:
+          azcliversion: 2.27.2
+          inlineScript: |
+            az acr helm install-cli --client-version 3.6.3 --yes
+            helm package .
+            az acr helm push -n ${{ secrets.HELM_REGISTRY }} dsb-message-broker-${{ steps.sem_ver.outputs.major }}.${{ steps.sem_ver.outputs.minor }}.${{ steps.sem_ver.outputs.patch }}.tgz
