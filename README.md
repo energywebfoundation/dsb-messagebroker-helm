@@ -29,7 +29,7 @@ data:
 
 kubectl apply -f secret.yaml
 
-helm install dsb-messagebroker https://github.com/energywebfoundation/dsb-messagebroker-helm/archive/refs/tags/v1.0.2.tar.gz
+helm install dsb-messagebroker-test https://github.com/energywebfoundation/dsb-messagebroker-helm/archive/refs/tags/v1.0.2.tar.gz
 
 kubectl get pods
 ```
@@ -56,7 +56,7 @@ kubectl get pods
 | ingress.hosts[0].paths[0].backend.servicePort | int | `80` |  |
 | ingress.hosts[0].paths[0].path | string | `"/*"` |  |
 | ingress.tls | list | `[]` |  |
-| messagebroker.config.cacheServerUrl | string | `"https://identitycache-dev.energyweb.org/"` | (optional string, default https://identitycache-dev.energyweb.org/) An URL to Identity Cache server, more info https://github.com/energywebfoundation/iam-cache-server |
+| messagebroker.config.cacheServerUrl | string | `"https://volta-identitycache.energyweb.org/"` | (optional string, default https://volta-identitycache.energyweb.org/) An URL to Identity Cache server, more info https://github.com/energywebfoundation/iam-cache-server |
 | messagebroker.config.mbDid | string | `"did:ethr:0x5aEa5Bf5c5b341A0BF30Cc5b51b77Fb9807F1b52"` | (required string) it is the DID identifier corresponding to the PRIVATE_KEY |
 | messagebroker.config.natsClusterUrl | string | `"nats://dsb-nats.dsb.svc:4222"` | NATS Jetstream node url |
 | messagebroker.config.port | int | `3000` | (optional int, default 3000) Port number to be used by DSB Message Broker to listen to |
