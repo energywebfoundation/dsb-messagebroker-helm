@@ -35,5 +35,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           release_branches: master
-          custom_release_rules: MAJOR:major:Major Changes,major:major:Major Changes,MINOR:minor:Minor Changes,minor:minor:Minor Changes,chore:patch:Chores
+          custom_release_rules: MAJOR:major:Major Changes,major:major:Major Changes,MINOR:minor:Minor,minor:minor:Minor Changes,chore:patch:Chores
           dry_run: true
