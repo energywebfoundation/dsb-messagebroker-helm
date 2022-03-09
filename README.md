@@ -1,6 +1,6 @@
 # dsb-messagebroker
 
-![Version: 1.0.2](https://img.shields.io/badge/Version-1.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.3.0](https://img.shields.io/badge/AppVersion-0.3.0-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -48,15 +48,15 @@ kubectl get pods
 | image.repository | string | `"aemocontainerregistry.azurecr.io/dsb/messagebroker"` |  |
 | image.tag | string | `"canary"` |  |
 | imagePullSecrets | list | `[]` |  |
-| ingress.annotations."alb.ingress.kubernetes.io/scheme" | string | `"internet-facing"` |  |
-| ingress.annotations."kubernetes.io/ingress.class" | string | `"alb"` |  |
+| ingress.annotations."kubernetes.io/ingress.class" | string | `"azure/application-gateway"` |  |
 | ingress.enabled | bool | `false` |  |
-| ingress.hosts[0].host | string | `"dsb-dev.energyweb.org"` |  |
-| ingress.hosts[0].paths[0].backend.serviceName | string | `"messagebroker"` |  |
-| ingress.hosts[0].paths[0].backend.servicePort | int | `80` |  |
-| ingress.hosts[0].paths[0].path | string | `"/*"` |  |
+| ingress.hosts[0].host | string | `"dsb-test.energyweb.org"` |  |
+| ingress.hosts[0].paths[0].backend.service.name | string | `"dsb-messagebroker-test"` |  |
+| ingress.hosts[0].paths[0].backend.service.port.number | int | `80` |  |
+| ingress.hosts[0].paths[0].path | string | `"/"` |  |
+| ingress.hosts[0].paths[0].pathType | string | `"Prefix"` |  |
 | ingress.tls | list | `[]` |  |
-| messagebroker.config.cacheServerUrl | string | `"https://volta-identitycache.energyweb.org/"` | (optional string, default https://volta-identitycache.energyweb.org/) An URL to Identity Cache server, more info https://github.com/energywebfoundation/iam-cache-server |
+| messagebroker.config.cacheServerUrl | string | `"https://identitycache-staging.energyweb.org/v1"` | (optional string, default https://volta-identitycache.energyweb.org/v1) An URL to Identity Cache server, more info https://github.com/energywebfoundation/iam-cache-server |
 | messagebroker.config.mbDid | string | `"did:ethr:0x5aEa5Bf5c5b341A0BF30Cc5b51b77Fb9807F1b52"` | (required string) it is the DID identifier corresponding to the PRIVATE_KEY |
 | messagebroker.config.natsClusterUrl | string | `"nats://dsb-nats.dsb.svc:4222"` | NATS Jetstream node url |
 | messagebroker.config.port | int | `3000` | (optional int, default 3000) Port number to be used by DSB Message Broker to listen to |
